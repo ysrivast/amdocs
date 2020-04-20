@@ -7,7 +7,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -45,29 +44,9 @@ class UserControllerTest {
 		mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
 		ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
 		String requestJson = ow.writeValueAsString(profile);
-//		MvcResult result = 
 				mockMvc.perform(
 				MockMvcRequestBuilders.post("/profile").contentType(MediaType.APPLICATION_JSON).content(requestJson))
 				.andExpect(MockMvcResultMatchers.status().isOk());
-//				.andDo(r -> System.out.println(r.getResponse().getContentAsString()) );
-				
-//				.andReturn();
-//		String response = result.getResponse().getContentAsString();
-//		assertThat(response).isNullOrEmpty();
 	}
 
-//	@Test
-	public void createOrUpdateSuccessful() throws Exception {
-
-		Profile profile = new Profile();
-		profile.setUserName("user11");
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-		ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-		String requestJson = ow.writeValueAsString(profile);
-		MvcResult result = mockMvc.perform(
-				MockMvcRequestBuilders.post("/profile").contentType(MediaType.APPLICATION_JSON).content(requestJson))
-				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andReturn();
-	}
 }
