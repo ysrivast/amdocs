@@ -21,33 +21,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //		auth.inMemoryAuthentication().withUser("user").password("{noop}password").roles("USER").and().withUser("admin")
 //				.password("{noop}password").roles("USER", "ADMIN");
 //	}
-	
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Autowired
-    private CustomUserDetailsService userDetailsService;
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	@Autowired
+	private CustomUserDetailsService userDetailsService;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.httpBasic()
-		.and().authorizeRequests()
-		.antMatchers("/profile/**","/user-service/profile/**").authenticated()
-		.and().csrf().disable()
-		.formLogin().and().logout().logoutUrl("/perform_logout").deleteCookies("JSESSIONID");
+		http.httpBasic().and().authorizeRequests().antMatchers("/profile/**", "/user-service/profile/**")
+				.authenticated().and().csrf().disable().formLogin().and().logout().logoutUrl("/perform_logout")
+				.deleteCookies("JSESSIONID");
 	}
-	
+
 	@Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-                auth
-                    .userDetailsService(userDetailsService)
-                    .passwordEncoder(bCryptPasswordEncoder);
-    }
-	
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+	}
+
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 }
