@@ -27,3 +27,13 @@ swagger documentation is avaliable :-
 http://localhost:8003/user-service/swagger-ui.html#
 http://localhost:8003/swagger-ui.html#/
 
+Before Starting project make sure Kafka server is up and running. Commands are below:-
+
+Start Apache Zookeeper-
+.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+
+Start Apache Kafka-
+.\bin\windows\kafka-server-start.bat .\config\server.properties
+
+
+
